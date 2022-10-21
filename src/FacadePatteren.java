@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
-//login using User_name and Password
+//login using username and password
 public class FacadePatteren {
     int merchant_type;
     String user_name;
@@ -22,8 +22,8 @@ public class FacadePatteren {
             this.user_name=scanner.next();
             System.out.println("Enter Password:");
             this.password=scanner.next();
-            File seller_info = new File("D:\\My SE Course Work\\SER-515\\Design Patterns Individual\\Bablu/SellerInfo.txt");
-            File buyerinfo = new File("D:\\My SE Course Work\\SER-515\\Design Patterns Individual\\Bablu/BuyerInfo.txt");
+            File seller_info = new File("D:\\My SE Course Work\\SER-515\\Design Patterns Individual\\Bablu\\untitled\\src/SellerInfo.txt");
+            File buyerinfo = new File("D:\\My SE Course Work\\SER-515\\Design Patterns Individual\\Bablu\\untitled\\src/BuyerInfo.txt");
 
             FileReader fbuyer = new FileReader(buyerinfo);
             FileReader fseller = new FileReader(seller_info);
@@ -50,7 +50,7 @@ public class FacadePatteren {
                     merchant_type=1;
                 }
             }
-            UserCreator();
+            CreatingUser();
         }
         catch(IOException e) {
             e.printStackTrace();
@@ -59,15 +59,20 @@ public class FacadePatteren {
         System.out.println(merchant_type);
 
     }
-    public void UserCreator()
+    public void CreatingUser()
     {
+        BusinessFactory businessFactory = new BusinessFactory();
+        Business business;
         if(merchant_type==0) {
-            thePerson = new Buyer();
-            products.createProducts();
+            business = businessFactory.businessNotification("Buyer");
+            business.notifyBusinessUser();
+           // thePerson = new Buyer();
         } else  {
+            business = businessFactory.businessNotification("Seller");
+            business.notifyBusinessUser();
             thePerson = new Seller();
-            products.createProducts();
         }
+        products.createProducts();
 
     }
 }
